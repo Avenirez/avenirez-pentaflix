@@ -120,7 +120,7 @@ export default async function MoviePage({ params }) {
               <h2 className="detail-section-title">Similar Movies</h2>
               <div className="movie-slider">
                 {movie.similar.map((m) => (
-                  <MovieCard key={m.id} movie={m} onPlay={() => {}} onInfo={() => {}} />
+                  <MovieCard key={m.id} movie={m} />
                 ))}
               </div>
             </section>
