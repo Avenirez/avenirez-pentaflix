@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { useWatchlist } from "@/context/WatchlistContext";
 
 export default function Navbar({ onSearch }) {
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef(null);
+  const { watchlist, mounted } = useWatchlist();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,13 +28,13 @@ export default function Navbar({ onSearch }) {
   const handleSearch = (e) => {
     const value = e.target.value;
     setQuery(value);
-    onSearch(value);
+    if (onSearch) onSearch(value);
   };
 
   const toggleSearch = () => {
     if (searchOpen) {
       setQuery("");
-      onSearch("");
+      if (onSearch) onSearch("");
     }
     setSearchOpen(!searchOpen);
   };
@@ -39,7 +42,7 @@ export default function Navbar({ onSearch }) {
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
       setQuery("");
-      onSearch("");
+      if (onSearch) onSearch("");
       setSearchOpen(false);
     }
   };
@@ -63,6 +66,12 @@ export default function Navbar({ onSearch }) {
         <a href="#genres" className="navbar__link">
           Genres
         </a>
+        <Link href="/watchlist" className="navbar__link">
+          Watchlist
+          {mounted && watchlist.length > 0 && (
+            <span className="watchlist-badge">{watchlist.length}</span>
+          )}
+        </Link>
       </div>
 
       <div className="navbar__actions">

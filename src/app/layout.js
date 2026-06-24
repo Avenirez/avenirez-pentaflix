@@ -7,10 +7,14 @@ export const metadata = {
   keywords: "movies, films, cinema, streaming, trailers, reviews",
 };
 
+import { WatchlistProvider } from "@/context/WatchlistContext";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <WatchlistProvider>{children}</WatchlistProvider>
+      </body>
     </html>
   );
 }
