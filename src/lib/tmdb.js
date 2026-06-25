@@ -98,42 +98,48 @@ export async function fetchGenresMap() {
   }
 }
 
-export async function fetchMovies(endpoint, params = {}) {
+export async function fetchMovies(endpoint, params = {}, page = 1) {
   try {
-    const res = await fetch(getUrl(endpoint, params), fetchOptions);
+    const res = await fetch(getUrl(endpoint, { ...params, page }), fetchOptions);
     if (!res.ok) throw new Error(`Failed to fetch ${endpoint}`);
     const data = await res.json();
     const genresMap = await fetchGenresMap();
-    return data.results.map((m) => formatMovie(m, genresMap));
+    return {
+      movies: data.results.map((m) => formatMovie(m, genresMap)),
+      page: data.page,
+      totalPages: data.total_pages,
+    };
   } catch (error) {
     console.error(`Error fetching movies from ${endpoint}:`, error);
-    return [];
+    // Treat a failed fetch as "no more pages" so a Load More button
+    // simply disappears instead of retrying forever in a broken state.
+    return { movies: [], page, totalPages: page };
   }
 }
 
-export async function fetchTrending() {
-  return fetchMovies("/trending/movie/week");
+export async function fetchTrending(page = 1) {
+  return fetchMovies("/trending/movie/week", {}, page);
 }
 
-export async function fetchTopRated() {
-  return fetchMovies("/movie/top_rated");
+export async function fetchTopRated(page = 1) {
+  return fetchMovies("/movie/top_rated", {}, page);
 }
 
-export async function fetchNowPlaying() {
-  return fetchMovies("/movie/now_playing");
+export async function fetchNowPlaying(page = 1) {
+  return fetchMovies("/movie/now_playing", {}, page);
 }
 
-export async function fetchUpcoming() {
-  return fetchMovies("/movie/upcoming");
+export async function fetchUpcoming(page = 1) {
+  return fetchMovies("/movie/upcoming", {}, page);
 }
 
-export async function fetchMoviesByGenre(genreId) {
-  return fetchMovies("/discover/movie", { with_genres: genreId });
+export async function fetchMoviesByGenre(genreId, page = 1) {
+  return fetchMovies("/discover/movie", { with_genres: genreId }, page);
 }
 
-export async function searchMovies(query) {
-  if (!query) return [];
-  return fetchMovies("/search/movie", { query });
+export async function searchMovies(query, page = 1) {
+  if (!query) return { movies: [], page: 1, totalPages: 1 };
+  return fetchMovies("/search/movie", { query }, page);
 }
 
 export async function fetchMovieDetails(id) {

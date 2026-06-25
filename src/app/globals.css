@@ -55,6 +55,33 @@
   --radius-xl: 24px;
 }
 
+/* ---- Light Theme Overrides ---- */
+[data-theme="light"] {
+  /* Background Colors */
+  --bg-primary: #f7f7f8;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f0f0f2;
+  --bg-elevated: #e8e8eb;
+  --bg-overlay: rgba(255, 255, 255, 0.88);
+
+  /* Text Colors */
+  --text-primary: #121212;
+  --text-secondary: #4d4d4d;
+  --text-muted: #8a8a8a;
+  --text-accent: #1a1a1a;
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border-medium: rgba(0, 0, 0, 0.12);
+  --border-strong: rgba(0, 0, 0, 0.18);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.15);
+}
+
 /* ---- Global Reset ---- */
 *,
 *::before,
@@ -76,6 +103,7 @@ body {
   color: var(--text-primary);
   overflow-x: hidden;
   line-height: 1.6;
+  transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
 
 a {
@@ -429,6 +457,22 @@ input {
 .btn--ghost:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: var(--border-strong);
+}
+
+.btn--loadmore {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+}
+
+.btn--loadmore:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+}
+
+.btn--loadmore:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
 
 .btn--icon {
@@ -1107,8 +1151,8 @@ input {
 .detail-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, var(--bg-main) 0%, transparent 100%),
-              linear-gradient(to right, var(--bg-main) 0%, transparent 100%);
+  background: linear-gradient(to top, var(--bg-primary) 0%, transparent 100%),
+              linear-gradient(to right, var(--bg-primary) 0%, transparent 100%);
 }
 
 .detail-content {
@@ -1321,4 +1365,3 @@ input {
     padding: 0 24px;
   }
 }
-
