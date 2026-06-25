@@ -81,24 +81,28 @@ export default function HomeClient({ trending, topRated, nowPlaying, upcoming, g
   // happen to have loaded for the home rows.
   useEffect(() => {
     if (activeGenreId === null) {
-      setGenreMovies([]);
-      return;
+      const timer = setTimeout(() => {
+        setGenreMovies([]);
+      }, 0);
+      return () => clearTimeout(timer);
     }
 
     let cancelled = false;
-    setGenreLoading(true);
-
-    fetchMoviesByGenre(activeGenreId, 1).then((result) => {
-      if (!cancelled) {
-        setGenreMovies(result.movies);
-        setGenrePage(result.page);
-        setGenreTotalPages(result.totalPages);
-        setGenreLoading(false);
-      }
-    });
+    const timer = setTimeout(() => {
+      setGenreLoading(true);
+      fetchMoviesByGenre(activeGenreId, 1).then((result) => {
+        if (!cancelled) {
+          setGenreMovies(result.movies);
+          setGenrePage(result.page);
+          setGenreTotalPages(result.totalPages);
+          setGenreLoading(false);
+        }
+      });
+    }, 0);
 
     return () => {
       cancelled = true;
+      clearTimeout(timer);
     };
   }, [activeGenreId]);
 
@@ -171,15 +175,26 @@ export default function HomeClient({ trending, topRated, nowPlaying, upcoming, g
         </div>
         <div className="movie-slider" id={`row-${id}`}>
           {row.movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} onPlay={openModal} onInfo={openModal} />
+            <MovieCard key={movie.id} movie={movie} onPlay={openModal} onInfo={null} />
           ))}
         </div>
         {hasMore && (
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "4px" }}>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "16px", marginBottom: "8px" }}>
             <button
               className="btn btn--loadmore"
               onClick={() => loadMoreRow(key)}
               disabled={row.loading}
+              style={{
+                padding: "10px 32px",
+                border: "1px solid rgba(255,255,255,0.3)",
+                borderRadius: "8px",
+                background: "transparent",
+                color: "inherit",
+                cursor: row.loading ? "not-allowed" : "pointer",
+                fontSize: "14px",
+                opacity: row.loading ? 0.6 : 1,
+                transition: "all 0.2s",
+              }}
             >
               {row.loading ? "Loading..." : "Load More"}
             </button>
@@ -197,7 +212,7 @@ export default function HomeClient({ trending, topRated, nowPlaying, upcoming, g
         {searchQuery ? (
           <div className="search-results">
             <h2 className="search-results__title">
-              Results for "{searchQuery}"
+              Results for &ldquo;{searchQuery}&rdquo;
             </h2>
             <p className="search-results__subtitle">
               Found {searchResults?.length || 0} movies
@@ -205,19 +220,19 @@ export default function HomeClient({ trending, topRated, nowPlaying, upcoming, g
             {searchResults?.length > 0 ? (
               <div className="search-results__grid">
                 {searchResults.map((movie) => (
-                  <MovieCard
-                    key={movie.id}
-                    movie={movie}
-                    onPlay={openModal}
-                    onInfo={openModal}
-                  />
+                   <MovieCard
+                     key={movie.id}
+                     movie={movie}
+                     onPlay={openModal}
+                     onInfo={null}
+                   />
                 ))}
               </div>
             ) : (
               <div className="search-results__empty">
                 <div className="search-results__empty-icon">🎬</div>
                 <p className="search-results__empty-text">
-                  We couldn't find any movies matching your search.
+                  We couldn&apos;t find any movies matching your search.
                   <br />
                   Try different keywords or browse our categories.
                 </p>
@@ -270,7 +285,7 @@ export default function HomeClient({ trending, topRated, nowPlaying, upcoming, g
                             key={movie.id}
                             movie={movie}
                             onPlay={openModal}
-                            onInfo={openModal}
+                            onInfo={null}
                           />
                         ))
                       : (
@@ -286,6 +301,17 @@ export default function HomeClient({ trending, topRated, nowPlaying, upcoming, g
                         className="btn btn--loadmore"
                         onClick={loadMoreGenre}
                         disabled={genreLoading}
+                        style={{
+                          padding: "10px 32px",
+                          border: "1px solid rgba(255,255,255,0.3)",
+                          borderRadius: "8px",
+                          background: "transparent",
+                          color: "inherit",
+                          cursor: genreLoading ? "not-allowed" : "pointer",
+                          fontSize: "14px",
+                          opacity: genreLoading ? 0.6 : 1,
+                          transition: "all 0.2s",
+                        }}
                       >
                         {genreLoading ? "Loading..." : "Load More"}
                       </button>

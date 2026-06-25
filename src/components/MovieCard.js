@@ -18,7 +18,7 @@ export default function MovieCard({ movie, onPlay, onInfo }) {
   };
 
   return (
-    <Link href={`/movie/${movie.id}`} className="movie-card" onClick={(e) => { if(onInfo) onInfo(movie); }}>
+    <Link href={`/movie/${movie.id}`} className="movie-card">
       <div className="movie-card__poster-wrap">
         <img
           className="movie-card__poster"

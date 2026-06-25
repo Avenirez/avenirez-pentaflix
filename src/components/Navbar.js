@@ -51,23 +51,23 @@ export default function Navbar({ onSearch }) {
 
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`} id="navbar">
-      <div className="navbar__logo">
+      <Link href="/" className="navbar__logo">
         Penta<span>flix</span>
-      </div>
+      </Link>
 
       <div className="navbar__nav">
-        <a href="#" className="navbar__link active">
+        <Link href="/" className="navbar__link active">
           Home
-        </a>
-        <a href="#trending" className="navbar__link">
+        </Link>
+        <Link href="/#trending" className="navbar__link">
           Trending
-        </a>
-        <a href="#top-rated" className="navbar__link">
+        </Link>
+        <Link href="/#top-rated" className="navbar__link">
           Top Rated
-        </a>
-        <a href="#genres" className="navbar__link">
+        </Link>
+        <Link href="/#genres" className="navbar__link">
           Genres
-        </a>
+        </Link>
         <Link href="/watchlist" className="navbar__link">
           Watchlist
           {mounted && watchlist.length > 0 && (
