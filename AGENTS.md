@@ -47,3 +47,16 @@ Apply the appropriate architectural pattern depending on the complexity of the f
 * **Verify Builds:** Always verify the project builds and runs successfully (`npm run build` or similar) before finalizing any changes.
 * **No placeholders:** Write complete, production-ready code. Never leave TODOs or placeholders.
 
+---
+
+## 5. Scalable System Design (Performance-First)
+* **Optimization & Caching:** Use caching mechanisms (e.g., Next.js fetch revalidation, React memoization) to prevent redundant data fetching or API queries.
+* **Efficient Execution:** Minimize resource usage. Avoid heavy operations in UI rendering paths and optimize render cycles.
+
+---
+
+## 6. Modern Industry Standards
+* **Modern Conventions:** Follow modern developer roadmaps. Write clean, standard code conforming to current framework guidelines (e.g., modern ECMAScript, React Hooks).
+* **Security & Best Practices:** Adhere to security standards (sanitizing inputs, protecting API keys in env variables) and ensure accessibility (semantic HTML).
+
+
