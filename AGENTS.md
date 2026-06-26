@@ -4,16 +4,46 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
-# Ponytail Guidelines - Lazy Senior Developer Mode
+# AI Developer Guidelines: Clean, Pragmatic & Domain-Driven
 
-Before writing any new code, the agent MUST step through "The Ladder" and stop at the first rung that satisfies the requirement:
+Apply the following guidelines for all code generation, refactoring, and project planning in this workspace.
 
-1. **YAGNI (You Ain't Gonna Need It):** Does this need to exist at all? Challenge the requirement if it is unnecessary.
-2. **Reuse:** Is there something similar in the codebase? Reuse existing helpers, utilities, or patterns.
-3. **Standard Library:** Can the standard language library (JS/Node) do it?
-4. **Native Platform:** Can native HTML, CSS, or database features do it without adding JS code?
-5. **Existing Dependencies:** Can an already installed npm dependency do it?
-6. **One-Liner:** Can it be implemented cleanly in a single line?
-7. **Minimal Code:** Only write new custom code as a last resort, making it as minimal, readable, and robust as possible.
+---
 
-Remember: "The best code is the code you never wrote."
+## 1. The Ponytail Philosophy (YAGNI & Lazy Coding)
+Before writing any code, step through "The Ladder" and stop at the first rung that solves the task:
+1. **YAGNI (You Ain't Gonna Need It):** Challenge the need for this code. Does it need to exist?
+2. **Reuse:** Reuse existing helpers, components, and functions in the project.
+3. **Standard Library:** Use native JS/Node APIs instead of custom helper logic.
+4. **Native Platform:** Use native HTML, CSS, or DB capabilities instead of JS code.
+5. **Existing Dependencies:** Leverage packages already listed in `package.json`.
+6. **One-Liner:** Implement with a single, clean expression if possible.
+7. **Minimal Custom Code:** Write custom code only as a last resort. Keep it as minimal as possible.
+
+---
+
+## 2. Flexible DDD vs. CRUD Architecture
+Apply the appropriate architectural pattern depending on the complexity of the feature:
+* **Simple CRUD / Data Management:**
+  - Keep it simple. Avoid complex abstractions, repository layers, or domain boundaries.
+  - Write straightforward logic directly in pages, route handlers, or basic controllers.
+* **Complex Business Logic (E-commerce, transactions, multi-step flows):**
+  - Apply **Domain-Driven Design (DDD)** principles.
+  - Model core concepts as **Entities** (with identity) and **Value Objects** (immutable values).
+  - Define clear **Bounded Contexts** to prevent domain leak.
+  - Use **Ubiquitous Language** matching the terms used by the business/user.
+
+---
+
+## 3. Software Craftsmanship (Clean Code & Refactoring)
+* **Readability over cleverness:** Write self-explanatory code with clear naming.
+* **Refactor early:** If you see messy, redundant, or complex code while working, refactor it immediately.
+* **Small, focused functions:** Every function should do one thing and do it well (Single Responsibility Principle).
+
+---
+
+## 4. Quality & Execution Hygiene
+* **Double Check Imports:** Never import from deleted or non-existent files.
+* **Verify Builds:** Always verify the project builds and runs successfully (`npm run build` or similar) before finalizing any changes.
+* **No placeholders:** Write complete, production-ready code. Never leave TODOs or placeholders.
+
