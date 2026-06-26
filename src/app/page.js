@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import HomeClient from "@/components/HomeClient";
-import SkeletonHero from "@/components/SkeletonHero";
-import SkeletonRow from "@/components/SkeletonRow";
+import Skeleton from "@/components/Skeleton";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import {
@@ -23,9 +22,9 @@ function LoadingSkeleton() {
     <>
       <Navbar />
       <main>
-        <SkeletonHero />
-        <SkeletonRow count={5} />
-        <SkeletonRow count={5} />
+        <Skeleton type="hero" />
+        <Skeleton type="row" count={5} />
+        <Skeleton type="row" count={5} />
       </main>
       <Footer />
     </>

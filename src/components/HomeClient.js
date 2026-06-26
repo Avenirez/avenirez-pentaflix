@@ -6,7 +6,7 @@ import HeroBanner from "./HeroBanner";
 import MovieCard from "./MovieCard";
 import MovieModal from "./MovieModal";
 import Footer from "./Footer";
-import SkeletonCard from "./SkeletonCard";
+import Skeleton from "./Skeleton";
 import {
   fetchTrending,
   fetchTopRated,
@@ -278,7 +278,7 @@ export default function HomeClient({ trending, topRated, nowPlaying, upcoming, g
                 <>
                   <div className="search-results__grid" style={{ padding: "0 48px", marginTop: "24px" }}>
                     {genreLoading && genreMovies.length === 0
-                      ? Array.from({ length: 5 }).map((_, i) => <SkeletonCard key={i} />)
+                      ? Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} type="card" />)
                       : genreMovies.length > 0
                       ? genreMovies.map((movie) => (
                           <MovieCard
